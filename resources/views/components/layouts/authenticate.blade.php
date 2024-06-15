@@ -10,8 +10,7 @@
 </head>
 <body>
     <div class="flex justify-center items-center h-screen drop-shadow-lg bg-neutral">
-        <form action="{{ route($action) }}">
-        @csrf
+
 
             <div class="card w-96 card-normaljustify-center items-center shadow-2xl">
                 <div class="card-body bg-base-100 rounded-lg w-full">
@@ -21,7 +20,7 @@
                 </div>
             </div>
 
-        </form>
     </div>
+
 </body>
 </html>

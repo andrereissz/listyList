@@ -1,8 +1,12 @@
-<x-layouts.authenticate page='Login' action='authenticate'>
+<x-layouts.authenticate page='Login'>
 
-        <label class="input input-bordered flex items-center gap-2">
+
+    <form action="{{ route('authenticate') }}">
+        @csrf
+
+        <label class="input input-bordered flex items-center gap-2 mb-2">
             <x-icons.email/>
-            <input type="text" class="grow" name="email" id="password" placeholder="Email" />
+            <input type="text" class="grow" name="email" id="email" placeholder="Email" />
         </label>
 
         <label class="input input-bordered flex items-center gap-2">
@@ -23,7 +27,9 @@
         </div>
 
         <div class="card-actions justify-center items-center pt-3">
-            <a class="text-sm" href="{{ route('register') }}">Create an account <u>here</u></a>
+            <a class="text-sm" href="{{ route('users.create') }}">Create an account <u>here</u></a>
         </div>
+
+    </form>
 
 </x-layouts.authenticate>

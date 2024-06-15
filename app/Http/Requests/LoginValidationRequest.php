@@ -15,15 +15,16 @@ class LoginValidationRequest extends FormRequest
     {
         return [
             'name' => ['alpha', 'max:50', 'min:10', 'required'],
-            'email' => ['unique:users,email', 'required'],
-            'password' => ['required', 'confirmed'],
+            'email' => ['required'],
+            'password' => ['required'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'password.confirmed' => 'The passwords does not match.',
+            'name' => 'Invalid name.',
+            'required' => 'The :attribute field must be filled.',
         ];
     }
 }
