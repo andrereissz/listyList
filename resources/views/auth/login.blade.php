@@ -1,35 +1,51 @@
-<x-layouts.authenticate page='Login'>
+<x-guest-layout>
+    <!-- Session Status -->
+    <x-auth-session-status :status="session('status')" />
 
-
-    <form action="{{ route('authenticate') }}">
+    <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <label class="input input-bordered flex items-center gap-2 mb-2">
-            <x-icons.email/>
-            <input type="text" class="grow" name="email" id="email" placeholder="Email" />
-        </label>
+        <!-- Email Address -->
+        <div class="mt-4">
+            <x-icon-text-input type="text" name="email" id="email" placeholder="Email" :value="old('email')" required autofocus autocomplete="username" icon="email"/>
 
-        <label class="input input-bordered flex items-center gap-2">
-            <x-icons.password/>
-            <input type="password" class="grow" name="password" id="password" placeholder="Password" />
-        </label>
-
-        <div class="form-control">
-            <label class="cursor-pointer label">
-              <span class="label-text">Remember me</span>
-              <input type="checkbox" class="checkbox checkbox-primary" />
-            </label>
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <div class="card-actions items-center justify-end">
-            <input class="btn btn-primary w-full" type="submit" value="Login">
-            <a class="text-sm" href="">Forgot your password?</a>
+        <!-- Password -->
+        <div class="mt-4">
+            <x-icon-text-input type="password" name="password" id="password" placeholder="Password" required icon="password"/>
+
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+
+            @if (Route::has('password.request'))
+                <a class="underline text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
+            @endif
         </div>
 
-        <div class="card-actions justify-center items-center pt-3">
-            <a class="text-sm" href="{{ route('users.create') }}">Create an account <u>here</u></a>
+        <!-- Remember Me -->
+        <div class="block mt-4">
+            <div class="form-control">
+                <label class="cursor-pointer label">
+                  <span class="label-text">Remember me</span>
+                  <input type="checkbox" checked="checked" class="checkbox checkbox-primary" />
+                </label>
+            </div>
         </div>
 
+        <div class="flex items-center justify-end mt-4">
+
+            <x-primary-button class="ms-3">
+                {{ __('Log in') }}
+            </x-primary-button>
+        </div>
     </form>
 
-</x-layouts.authenticate>
+    <div class="flex items-center justify-center mt-4">
+        <a class="underline text-sm text-gray-800" href="{{ route('register') }}">
+            {{ __('Create an account here') }}
+        </a>
+    </div>
+</x-guest-layout>
