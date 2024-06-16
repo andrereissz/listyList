@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="mytheme">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,10 +15,7 @@
 
             <div class="card w-96 card-normaljustify-center items-center shadow-2xl">
                 <div class="card-body bg-base-100 rounded-lg w-full">
-                    <div class="flex flex-auto text-center justify-center align-middle">
-                        <h1 class="text-3xl font-bold">ListyList</h1>
-                        <x-icons.pencil/>
-                    </div>
+                    <x-application-logo/>
 
                     {{ $slot }}
 
