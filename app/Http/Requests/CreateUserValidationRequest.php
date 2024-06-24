@@ -17,8 +17,8 @@ class CreateUserValidationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['max:50', 'min:10', 'required'],
-            'email' => ['unique:users,email', 'required'],
+            'name' => ['required', 'max:50', 'min:10'],
+            'email' => ['required', 'unique:users, email'],
             'password' => ['required', 'min:5', 'max:20', 'confirmed'],
         ];
     }
