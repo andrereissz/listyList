@@ -7,10 +7,9 @@ use App\Http\Requests\CreateUserValidationRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Flasher\Toastr\Prime\ToastrInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -30,13 +29,15 @@ class RegisteredUserController extends Controller
      */
     public function store(CreateUserValidationRequest $request): RedirectResponse
     {
-        $request->validate();
+        $data = $request->validated();
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
         ]);
+
+        toastr()->success('Account created with success!!');
 
         event(new Registered($user));
 

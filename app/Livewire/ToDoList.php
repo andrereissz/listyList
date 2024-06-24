@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Task;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -14,7 +15,10 @@ class ToDoList extends Component
     #[Computed]
     public function tasks()
     {
-        return Task::search($this->search)->get();
+        return Task::search($this->search)
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('deadline', 'ASC')
+            ->get();
     }
 
     public function render()

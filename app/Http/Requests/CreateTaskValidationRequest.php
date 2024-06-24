@@ -6,16 +6,18 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateTaskValidationRequest extends FormRequest
 {
+    /*
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
+    */
 
     public function rules(): array
     {
         return [
             'name' => ['required'],
-            'task' => ['required'],
+            'deadline' => [''],
         ];
     }
 

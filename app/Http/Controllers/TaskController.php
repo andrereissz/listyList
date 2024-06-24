@@ -2,29 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateTaskValidationRequest;
+use App\Models\Task;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
     public function index()
     {
-        //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(CreateTaskValidationRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $task = Task::create(
+            [
+                'user_id' => Auth::user()->id,
+                'name' => $data['name'],
+                'deadline' => $data['deadline'],
+            ]
+        );
+
+        if ($task instanceof Task) {
+            toastr()
+                ->positionClass('toast-top-center')
+                ->success('Task created with success!');
+        } else {
+            toastr()
+                ->positionClass('toast-top-center')
+                ->error('Invalid data provided.');
+        }
+
+        return redirect(route('dashboard'));
     }
 
     /**

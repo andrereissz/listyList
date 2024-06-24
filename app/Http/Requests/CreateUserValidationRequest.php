@@ -18,7 +18,7 @@ class CreateUserValidationRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:50', 'min:10'],
-            'email' => ['required', 'unique:users, email'],
+            'email' => ['required', 'unique:users'],
             'password' => ['required', 'min:5', 'max:20', 'confirmed'],
         ];
     }
